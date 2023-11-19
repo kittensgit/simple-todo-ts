@@ -22,6 +22,16 @@ const App: FC = () => {
         setTodos([...todos, newTodo]);
     };
 
+    const toggleTodo = (id: ITodo['id']) => {
+        setTodos(
+            todos.map((todo) =>
+                todo.id === id
+                    ? { ...todo, completed: !todo.completed }
+                    : { ...todo }
+            )
+        );
+    };
+
     const deleteTodo = (id: ITodo['id']) => {
         setTodos(todos.filter((todo) => todo.id !== id));
     };
@@ -29,7 +39,11 @@ const App: FC = () => {
     return (
         <div>
             <TodoForm addTodo={addTodo} />
-            <TodoList deleteTodo={deleteTodo} todos={todos} />
+            <TodoList
+                toggleTodo={toggleTodo}
+                deleteTodo={deleteTodo}
+                todos={todos}
+            />
         </div>
     );
 };
