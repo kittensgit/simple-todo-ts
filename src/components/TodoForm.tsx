@@ -11,9 +11,17 @@ const TodoForm: FC<TodoFormProps> = ({ addTodo }) => {
         setValue(e.target.value);
     };
 
-    const handleAddTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
-        addTodo(value);
-        setValue('');
+    const handleAddTodo = () => {
+        if (value) {
+            addTodo(value);
+            setValue('');
+        }
+    };
+
+    const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleAddTodo();
+        }
     };
 
     return (
@@ -23,6 +31,7 @@ const TodoForm: FC<TodoFormProps> = ({ addTodo }) => {
                 value={value}
                 onChange={handleChange}
                 type="text"
+                onKeyDown={handleEnter}
             />
             <button onClick={handleAddTodo}>add</button>
         </div>
