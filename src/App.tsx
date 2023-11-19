@@ -32,6 +32,14 @@ const App: FC = () => {
         );
     };
 
+    const editTodo = (id: ITodo['id'], task: ITodo['task']) => {
+        setTodos(
+            todos.map((todo) =>
+                todo.id === id ? { ...todo, task } : { ...todo }
+            )
+        );
+    };
+
     const deleteTodo = (id: ITodo['id']) => {
         setTodos(todos.filter((todo) => todo.id !== id));
     };
@@ -40,6 +48,7 @@ const App: FC = () => {
         <div>
             <TodoForm addTodo={addTodo} />
             <TodoList
+                editTodo={editTodo}
                 toggleTodo={toggleTodo}
                 deleteTodo={deleteTodo}
                 todos={todos}
