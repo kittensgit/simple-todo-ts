@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { ITodo } from '../types/types';
+import EditForm from './EditForm';
 
 interface TodoItemProps {
     todo: ITodo;
@@ -14,12 +15,7 @@ const TodoItem: FC<TodoItemProps> = ({
     toggleTodo,
     editTodo,
 }) => {
-    const [value, setValue] = useState<string>(todo.task);
     const [isEdit, setIsEdit] = useState<boolean>(false);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value);
-    };
 
     const handleSave = (id: ITodo['id'], task: ITodo['task']) => {
         editTodo(id, task);
@@ -29,12 +25,7 @@ const TodoItem: FC<TodoItemProps> = ({
     return (
         <div>
             {isEdit ? (
-                <div>
-                    <input value={value} onChange={handleChange} />
-                    <button onClick={() => handleSave(todo.id, value)}>
-                        save
-                    </button>
-                </div>
+                <EditForm todo={todo} handleSave={handleSave} />
             ) : (
                 <>
                     <span
