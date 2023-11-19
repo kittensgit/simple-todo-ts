@@ -10,7 +10,7 @@ const TodoList: FC<TodoListProps> = ({ todos }) => {
     return (
         <div>
             {todos.map((todo: ITodo) => (
-                <TodoItem todo={todo} />
+                <TodoItem key={todo.id} todo={todo} />
             ))}
         </div>
     );
