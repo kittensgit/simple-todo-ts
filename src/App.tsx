@@ -13,7 +13,7 @@ const App: FC = () => {
         },
     ]);
 
-    const addTodo = (task: string) => {
+    const addTodo = (task: ITodo['task']) => {
         const newTodo: ITodo = {
             id: v4(),
             task,
@@ -22,10 +22,14 @@ const App: FC = () => {
         setTodos([...todos, newTodo]);
     };
 
+    const deleteTodo = (id: ITodo['id']) => {
+        setTodos(todos.filter((todo) => todo.id !== id));
+    };
+
     return (
         <div>
             <TodoForm addTodo={addTodo} />
-            <TodoList todos={todos} />
+            <TodoList deleteTodo={deleteTodo} todos={todos} />
         </div>
     );
 };
