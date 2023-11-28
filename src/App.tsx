@@ -16,10 +16,14 @@ const App: FC = () => {
         setTodos([...todos, newTodo]);
     };
 
+    const deleteTodo = (id: ITodo['id']) => {
+        setTodos(todos.filter((todo) => todo.id !== id));
+    };
+
     return (
         <div>
             <TodoForm addTodo={addTodo} />
-            <TodoList todos={todos} />
+            <TodoList deleteTodo={deleteTodo} todos={todos} />
         </div>
     );
 };

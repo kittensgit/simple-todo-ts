@@ -19,9 +19,16 @@ const TodoForm: FC<TodoFormProps> = ({ addTodo }) => {
         }
     };
 
+    const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleAddTodo();
+        }
+    };
+
     return (
         <div>
             <input
+                onKeyDown={handleEnter}
                 onChange={handleChange}
                 value={value}
                 placeholder="enter task"
