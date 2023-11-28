@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react';
+import { ITodo } from '../types/types';
 
 interface TodoFormProps {
-    addTodo: (task: string) => void;
+    addTodo: (task: ITodo['task']) => void;
 }
 
 const TodoForm: FC<TodoFormProps> = ({ addTodo }) => {
@@ -18,20 +19,13 @@ const TodoForm: FC<TodoFormProps> = ({ addTodo }) => {
         }
     };
 
-    const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            handleAddTodo();
-        }
-    };
-
     return (
         <div>
             <input
-                placeholder="enter task"
-                value={value}
                 onChange={handleChange}
+                value={value}
+                placeholder="enter task"
                 type="text"
-                onKeyDown={handleEnter}
             />
             <button onClick={handleAddTodo}>add</button>
         </div>
