@@ -20,10 +20,30 @@ const App: FC = () => {
         setTodos(todos.filter((todo) => todo.id !== id));
     };
 
+    const toggleTodo = (id: ITodo['id']) => {
+        setTodos(
+            todos.map((todo) =>
+                todo.id === id
+                    ? { ...todo, completed: !todo.completed }
+                    : { ...todo }
+            )
+        );
+    };
+
     return (
-        <div>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+            }}
+        >
             <TodoForm addTodo={addTodo} />
-            <TodoList deleteTodo={deleteTodo} todos={todos} />
+            <TodoList
+                deleteTodo={deleteTodo}
+                toggleTodo={toggleTodo}
+                todos={todos}
+            />
         </div>
     );
 };
