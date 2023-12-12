@@ -1,12 +1,18 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './App.css';
 import { ITodo } from './types/types';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 import { v4 } from 'uuid';
+import FilterTodo from './components/FilterTodo';
 
 const App: FC = () => {
     const [todos, setTodos] = useState<ITodo[]>([]);
+    const [filtered, setFiltered] = useState<ITodo[]>(todos);
+
+    useEffect(() => {
+        setFiltered(todos);
+    }, [todos]);
 
     const addTodo = (task: ITodo['task']) => {
         const newTodo: ITodo = {
@@ -29,11 +35,20 @@ const App: FC = () => {
         );
     };
 
+    const filterTodo = (status: string | boolean) => {
+        if (status === 'all') {
+            setFiltered(todos);
+        } else {
+            setFiltered(todos.filter((todo) => todo.completed === status));
+        }
+    };
+
     return (
         <div className="App">
             <TodoForm addTodo={addTodo} />
+            <FilterTodo filterTodo={filterTodo} />
             <TodoList
-                todos={todos}
+                todos={filtered}
                 removeTodo={removeTodo}
                 toggleTodo={toggleTodo}
             />
