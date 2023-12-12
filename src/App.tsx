@@ -27,6 +27,15 @@ const App: FC = () => {
         setTodos(todos.filter((todo) => todo.id !== id));
     };
 
+    const sortByAlphabet = () => {
+        const sortedTodos = [...todos].sort((a, b) => {
+            // Используем метод localeCompare для сравнения строк с учетом локали
+            return a.task.localeCompare(b.task);
+        });
+
+        setTodos(sortedTodos);
+    };
+
     const toggleTodo = (id: ITodo['id']) => {
         setTodos(
             todos.map((todo) =>
@@ -47,6 +56,7 @@ const App: FC = () => {
         <div className="App">
             <TodoForm addTodo={addTodo} />
             <FilterTodo filterTodo={filterTodo} />
+            <button onClick={() => sortByAlphabet()}>sort by alphabet</button>
             <TodoList
                 todos={filtered}
                 removeTodo={removeTodo}
