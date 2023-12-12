@@ -17,10 +17,26 @@ const App: FC = () => {
         setTodos([...todos, newTodo]);
     };
 
+    const removeTodo = (id: ITodo['id']) => {
+        setTodos(todos.filter((todo) => todo.id !== id));
+    };
+
+    const toggleTodo = (id: ITodo['id']) => {
+        setTodos(
+            todos.map((todo) =>
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            )
+        );
+    };
+
     return (
         <div className="App">
             <TodoForm addTodo={addTodo} />
-            <TodoList todos={todos} />
+            <TodoList
+                todos={todos}
+                removeTodo={removeTodo}
+                toggleTodo={toggleTodo}
+            />
         </div>
     );
 };
