@@ -3,21 +3,14 @@ import { ITodo } from '../types/types';
 import TodoItem from './TodoItem';
 
 interface TodoListProps {
-    deleteTodo: (id: ITodo['id']) => void;
-    toggleTodo: (id: ITodo['id']) => void;
     todos: ITodo[];
 }
 
-const TodoList: FC<TodoListProps> = ({ todos, deleteTodo, toggleTodo }) => {
+const TodoList: FC<TodoListProps> = ({ todos }) => {
     return (
         <div>
             {todos.map((todo) => (
-                <TodoItem
-                    key={todo.id}
-                    todo={todo}
-                    toggleTodo={toggleTodo}
-                    deleteTodo={deleteTodo}
-                />
+                <TodoItem key={todo.id} todo={todo} />
             ))}
         </div>
     );
