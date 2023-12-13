@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
+
 import { ITodo } from '../types/types';
+
 import TodoItem from './TodoItem';
 
 interface TodoListProps {

@@ -1,4 +1,7 @@
 import React, { FC } from 'react';
+
+import styles from '../css/TodoItem.module.css';
+
 import { ITodo } from '../types/types';
 
 interface TodoItemProps {
@@ -11,7 +14,7 @@ const TodoItem: FC<TodoItemProps> = ({ todo, removeTodo, toggleTodo }) => {
     return (
         <div>
             <span
-                className={todo.completed ? 'completed' : ''}
+                className={todo.completed ? styles.completed : ''}
                 onClick={() => toggleTodo(todo.id)}
             >
                 {todo.task}

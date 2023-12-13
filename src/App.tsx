@@ -1,9 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
-import './App.css';
+import { v4 } from 'uuid';
+
+import styles from './css/App.module.css';
+
 import { ITodo } from './types/types';
+
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
-import { v4 } from 'uuid';
 import FilterTodo from './components/FilterTodo';
 
 const App: FC = () => {
@@ -27,15 +30,6 @@ const App: FC = () => {
         setTodos(todos.filter((todo) => todo.id !== id));
     };
 
-    const sortByAlphabet = () => {
-        const sortedTodos = [...todos].sort((a, b) => {
-            // Используем метод localeCompare для сравнения строк с учетом локали
-            return a.task.localeCompare(b.task);
-        });
-
-        setTodos(sortedTodos);
-    };
-
     const toggleTodo = (id: ITodo['id']) => {
         setTodos(
             todos.map((todo) =>
@@ -52,8 +46,16 @@ const App: FC = () => {
         }
     };
 
+    const sortByAlphabet = () => {
+        const sortedTodos = [...todos].sort((a, b) => {
+            return a.task.localeCompare(b.task);
+        });
+
+        setTodos(sortedTodos);
+    };
+
     return (
-        <div className="App">
+        <div className={styles.app}>
             <TodoForm addTodo={addTodo} />
             <FilterTodo filterTodo={filterTodo} />
             <button onClick={() => sortByAlphabet()}>sort by alphabet</button>
