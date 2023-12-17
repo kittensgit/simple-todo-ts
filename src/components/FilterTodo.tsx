@@ -7,9 +7,9 @@ interface FilterTodoProps {
 const FilterTodo: FC<FilterTodoProps> = ({ filterTodo }) => {
     return (
         <div>
-            <button onClick={() => filterTodo('all')}>All</button>
-            <button onClick={() => filterTodo(true)}>Completed</button>
-            <button onClick={() => filterTodo(false)}>Uncompleted</button>
+            <button onClick={() => filterTodo('all')}>all</button>
+            <button onClick={() => filterTodo(true)}>completed</button>
+            <button onClick={() => filterTodo(false)}>uncompleted</button>
         </div>
     );
 };

@@ -1,25 +1,25 @@
 import React, { FC } from 'react';
 
-import styles from '../css/TodoItem.module.css';
-
 import { ITodo } from '../types/types';
+
+import styles from '../css/TodoItem.module.css';
 
 interface TodoItemProps {
     todo: ITodo;
-    removeTodo: (task: ITodo['task']) => void;
-    toggleTodo: (task: ITodo['task']) => void;
+    deleteTodo: (id: ITodo['id']) => void;
+    toggleTodo: (id: ITodo['id']) => void;
 }
 
-const TodoItem: FC<TodoItemProps> = ({ todo, removeTodo, toggleTodo }) => {
+const TodoItem: FC<TodoItemProps> = ({ todo, deleteTodo, toggleTodo }) => {
     return (
         <div>
-            <span
+            <p
                 className={todo.completed ? styles.completed : ''}
                 onClick={() => toggleTodo(todo.id)}
             >
                 {todo.task}
-            </span>
-            <button onClick={() => removeTodo(todo.id)}>remove</button>
+            </p>
+            <button onClick={() => deleteTodo(todo.id)}>delete</button>
         </div>
     );
 };

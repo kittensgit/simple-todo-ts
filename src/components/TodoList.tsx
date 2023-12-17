@@ -6,18 +6,18 @@ import TodoItem from './TodoItem';
 
 interface TodoListProps {
     todos: ITodo[];
-    removeTodo: (task: ITodo['task']) => void;
-    toggleTodo: (task: ITodo['task']) => void;
+    deleteTodo: (id: ITodo['id']) => void;
+    toggleTodo: (id: ITodo['id']) => void;
 }
 
-const TodoList: FC<TodoListProps> = ({ todos, removeTodo, toggleTodo }) => {
+const TodoList: FC<TodoListProps> = ({ todos, deleteTodo, toggleTodo }) => {
     return (
         <div>
             {todos.map((todo) => (
                 <TodoItem
                     key={todo.id}
                     todo={todo}
-                    removeTodo={removeTodo}
+                    deleteTodo={deleteTodo}
                     toggleTodo={toggleTodo}
                 />
             ))}

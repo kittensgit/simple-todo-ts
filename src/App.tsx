@@ -1,20 +1,20 @@
 import React, { FC, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 
-import styles from './css/App.module.css';
-
 import { ITodo } from './types/types';
 
-import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
+
+import styles from './css/App.module.css';
 import FilterTodo from './components/FilterTodo';
 
 const App: FC = () => {
     const [todos, setTodos] = useState<ITodo[]>([]);
-    const [filtered, setFiltered] = useState<ITodo[]>(todos);
+    const [filterTodos, setFilterTodos] = useState<ITodo[]>(todos);
 
     useEffect(() => {
-        setFiltered(todos);
+        setFilterTodos(todos);
     }, [todos]);
 
     const addTodo = (task: ITodo['task']) => {
@@ -26,7 +26,7 @@ const App: FC = () => {
         setTodos([...todos, newTodo]);
     };
 
-    const removeTodo = (id: ITodo['id']) => {
+    const deleteTodo = (id: ITodo['id']) => {
         setTodos(todos.filter((todo) => todo.id !== id));
     };
 
@@ -40,28 +40,19 @@ const App: FC = () => {
 
     const filterTodo = (status: string | boolean) => {
         if (status === 'all') {
-            setFiltered(todos);
+            setFilterTodos(todos);
         } else {
-            setFiltered(todos.filter((todo) => todo.completed === status));
+            setFilterTodos(todos.filter((todo) => todo.completed === status));
         }
-    };
-
-    const sortByAlphabet = () => {
-        const sortedTodos = [...todos].sort((a, b) => {
-            return a.task.localeCompare(b.task);
-        });
-
-        setTodos(sortedTodos);
     };
 
     return (
         <div className={styles.app}>
             <TodoForm addTodo={addTodo} />
             <FilterTodo filterTodo={filterTodo} />
-            <button onClick={() => sortByAlphabet()}>sort by alphabet</button>
             <TodoList
-                todos={filtered}
-                removeTodo={removeTodo}
+                todos={filterTodos}
+                deleteTodo={deleteTodo}
                 toggleTodo={toggleTodo}
             />
         </div>

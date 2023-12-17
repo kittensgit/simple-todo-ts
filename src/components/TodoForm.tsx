@@ -9,25 +9,19 @@ interface TodoFormProps {
 const TodoForm: FC<TodoFormProps> = ({ addTodo }) => {
     const [value, setValue] = useState<string>('');
 
-    const handleClick = () => {
+    const handleAddTodo = () => {
         addTodo(value);
         setValue('');
     };
 
-    const handleEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            handleClick();
-        }
-    };
     return (
         <div>
             <input
+                placeholder="enter task"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                placeholder="enter task"
-                onKeyDown={handleEnter}
             />
-            <button onClick={handleClick}>Add task</button>
+            <button onClick={handleAddTodo}>add</button>
         </div>
     );
 };
