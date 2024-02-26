@@ -1,12 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 
-import { ITodo } from './types/types';
-
-import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
 
-import styles from './css/App.module.css';
+import { ITodo } from './types/types';
 import FilterTodo from './components/FilterTodo';
 
 const App: FC = () => {
@@ -23,19 +21,11 @@ const App: FC = () => {
             task,
             completed: false,
         };
-        setTodos([...todos, newTodo]);
+        setTodos([newTodo, ...todos]);
     };
 
     const deleteTodo = (id: ITodo['id']) => {
         setTodos(todos.filter((todo) => todo.id !== id));
-    };
-
-    const toggleTodo = (id: ITodo['id']) => {
-        setTodos(
-            todos.map((todo) =>
-                todo.id === id ? { ...todo, completed: !todo.completed } : todo
-            )
-        );
     };
 
     const filterTodo = (status: string | boolean) => {
@@ -46,14 +36,22 @@ const App: FC = () => {
         }
     };
 
+    const toggleTodo = (id: ITodo['id']) => {
+        setTodos(
+            todos.map((todo) =>
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            )
+        );
+    };
+
     return (
-        <div className={styles.app}>
+        <div>
             <TodoForm addTodo={addTodo} />
             <FilterTodo filterTodo={filterTodo} />
             <TodoList
-                todos={filterTodos}
-                deleteTodo={deleteTodo}
                 toggleTodo={toggleTodo}
+                deleteTodo={deleteTodo}
+                todos={filterTodos}
             />
         </div>
     );

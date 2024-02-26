@@ -1,25 +1,35 @@
-import React, { FC, useState } from 'react';
+import { ChangeEvent, FC, KeyboardEvent, useState } from 'react';
 
 import { ITodo } from '../types/types';
 
 interface TodoFormProps {
-    addTodo: (task: ITodo['task']) => void;
+    addTodo: (task: ITodo['id']) => void;
 }
 
 const TodoForm: FC<TodoFormProps> = ({ addTodo }) => {
     const [value, setValue] = useState<string>('');
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value);
+    };
 
     const handleAddTodo = () => {
         addTodo(value);
         setValue('');
     };
 
+    const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleAddTodo();
+        }
+    };
     return (
         <div>
             <input
-                placeholder="enter task"
                 value={value}
-                onChange={(e) => setValue(e.target.value)}
+                onChange={handleChange}
+                onKeyDown={handleEnter}
+                placeholder="enter task"
             />
             <button onClick={handleAddTodo}>add</button>
         </div>
