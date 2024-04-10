@@ -3,29 +3,21 @@ import { FC } from 'react';
 import { ITodo } from '../types/types';
 
 interface TodoItemProps {
+    todo: ITodo;
     deleteTodo: (id: ITodo['id']) => void;
     toggleTodo: (id: ITodo['id']) => void;
-    todo: ITodo;
 }
 
 const TodoItem: FC<TodoItemProps> = ({ todo, deleteTodo, toggleTodo }) => {
-    const handleDeleteTodo = () => {
-        deleteTodo(todo.id);
-    };
-
-    const handleToggleTodo = () => {
-        toggleTodo(todo.id);
-    };
-
     return (
-        <div>
-            <span
-                onClick={handleToggleTodo}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <p
                 className={todo.completed ? 'completed' : ''}
+                onClick={() => toggleTodo(todo.id)}
             >
                 {todo.task}
-            </span>
-            <button onClick={handleDeleteTodo}>X</button>
+            </p>
+            <button onClick={() => deleteTodo(todo.id)}>X</button>
         </div>
     );
 };
